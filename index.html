@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<body style="text-align:center">
+
+<h2>URNA</h2>
+<p id="tela">Presidente</p>
+
+<button onclick="n(1)">1</button>
+<button onclick="n(2)">2</button>
+<button onclick="n(3)">3</button><br>
+<button onclick="n(4)">4</button>
+<button onclick="n(5)">5</button>
+<button onclick="n(6)">6</button><br>
+<button onclick="n(7)">7</button>
+<button onclick="n(8)">8</button>
+<button onclick="n(9)">9</button><br>
+<button onclick="n(0)">0</button>
+<button onclick="votar()">OK</button>
+
+<script>
+let num="",cargo="Presidente";
+
+function n(x){
+num+=x;
+tela.innerHTML=num;
+}
+
+function votar(){
+if(cargo=="Presidente"&&num=="88"){
+alert("Você votou em: Ariana Grande");
+cargo="Governador";num="";tela.innerHTML=cargo;
+}
+else if(cargo=="Governador"&&num=="77"){
+alert("Você votou em: Sabrina Carpenter");
+tela.innerHTML="Votação finalizada!";
+}
+else{
+alert("Número inválido!");
+num="";
+}
+}
+</script>
+
+</body>
+</html>
