@@ -1,45 +1,199 @@
+```html
 <!DOCTYPE html>
-<html>
-<body style="text-align:center">
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Urna Eletrônica</title>
 
-<h2>URNA</h2>
-<p id="tela">Presidente</p>
+<style>
+body{
+    background:#222;
+    font-family:Arial;
+    display:flex;
+    justify-content:center;
+    padding:30px;
+}
 
-<button onclick="n(1)">1</button>
-<button onclick="n(2)">2</button>
-<button onclick="n(3)">3</button><br>
-<button onclick="n(4)">4</button>
-<button onclick="n(5)">5</button>
-<button onclick="n(6)">6</button><br>
-<button onclick="n(7)">7</button>
-<button onclick="n(8)">8</button>
-<button onclick="n(9)">9</button><br>
-<button onclick="n(0)">0</button>
-<button onclick="votar()">OK</button>
+.urna{
+    background:#ccc;
+    width:500px;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 0 15px #000;
+}
+
+.tela{
+    background:white;
+    height:220px;
+    border:8px solid #333;
+    padding:20px;
+}
+
+h2{text-align:center;}
+
+.numero{
+    font-size:30px;
+    border-bottom:2px solid #000;
+    width:130px;
+    margin:20px auto;
+    text-align:center;
+}
+
+.teclado{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+    width:280px;
+    margin:20px auto;
+}
+
+button{
+    padding:15px;
+    font-size:18px;
+    border:0;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.teclado button{
+    background:#111;
+    color:white;
+}
+
+.branco{background:white;}
+.corrige{background:#e5a800;}
+.confirma{background:#198754;color:white;}
+
+.botoes{
+    text-align:center;
+}
+
+#resultado{
+    text-align:center;
+    font-size:20px;
+    font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="urna">
+
+<div class="tela">
+
+<h2 id="cargo">PRESIDENTE</h2>
+
+<p>Digite o número do candidato:</p>
+
+<div class="numero" id="numero"></div>
+
+<div id="resultado"></div>
+
+</div>
+
+<div class="teclado">
+
+<button onclick="digitar(1)">1</button>
+<button onclick="digitar(2)">2</button>
+<button onclick="digitar(3)">3</button>
+
+<button onclick="digitar(4)">4</button>
+<button onclick="digitar(5)">5</button>
+<button onclick="digitar(6)">6</button>
+
+<button onclick="digitar(7)">7</button>
+<button onclick="digitar(8)">8</button>
+<button onclick="digitar(9)">9</button>
+
+<button onclick="digitar(0)">0</button>
+
+</div>
+
+<div class="botoes">
+<button class="branco" onclick="branco()">BRANCO</button>
+<button class="corrige" onclick="corrigir()">CORRIGE</button>
+<button class="confirma" onclick="confirmar()">CONFIRMA</button>
+</div>
+
+</div>
 
 <script>
-let num="",cargo="Presidente";
 
-function n(x){
-num+=x;
-tela.innerHTML=num;
+let numero = "";
+let cargo = "Presidente";
+
+let candidatos = {
+    Presidente:{
+        "11":"Ariana Grande",
+        "22":"Sabrina Carpenter",
+        "13":"Taylor Swift"
+    },
+    Governador:{
+        "11":"Ariana Grande",
+        "22":"Sabrina Carpenter",
+        "13":"Taylor Swift"
+    }
+};
+
+function digitar(n){
+    if(numero.length < 2){
+        numero += n;
+        document.getElementById("numero").innerText = numero;
+    }
 }
 
-function votar(){
-if(cargo=="Presidente"&&num=="88"){
-alert("Você votou em: Ariana Grande");
-cargo="Governador";num="";tela.innerHTML=cargo;
+function corrigir(){
+    numero="";
+    document.getElementById("numero").innerText="";
+    document.getElementById("resultado").innerText="";
 }
-else if(cargo=="Governador"&&num=="77"){
-alert("Você votou em: Sabrina Carpenter");
-tela.innerHTML="Votação finalizada!";
+
+function branco(){
+    document.getElementById("resultado").innerText="VOTO EM BRANCO";
 }
-else{
-alert("Número inválido!");
-num="";
+
+function confirmar(){
+
+    let candidato = candidatos[cargo][numero];
+
+    if(candidato){
+
+        document.getElementById("resultado").innerText =
+        "Você votou em: " + candidato;
+
+        setTimeout(function(){
+
+            if(cargo === "Presidente"){
+
+                cargo = "Governador";
+                numero="";
+
+                document.getElementById("cargo").innerText="GOVERNADOR";
+                document.getElementById("numero").innerText="";
+                document.getElementById("resultado").innerText="";
+
+            }else{
+
+                document.getElementById("cargo").innerText="FIM DA VOTAÇÃO";
+                document.getElementById("numero").innerText="";
+                document.getElementById("resultado").innerText=
+                "Votação concluída!";
+
+            }
+
+        },2000);
+
+    }else{
+
+        document.getElementById("resultado").innerText=
+        "Candidato não encontrado!";
+
+    }
 }
-}
+
 </script>
 
 </body>
 </html>
+```
