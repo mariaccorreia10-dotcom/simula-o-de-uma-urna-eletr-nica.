@@ -113,4 +113,191 @@ body{
     margin-top:6px;
     border:0;
     font-weight:bold;
-    cursor:pointer
+    cursor:pointer;
+}
+
+.branco{
+    background:white;
+}
+
+.corrige{
+    background:#e5a900;
+}
+
+.confirma{
+    background:#198754;
+    color:white;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="urna">
+
+<!-- TELA -->
+<div class="tela">
+
+<h2 id="cargo">PRESIDENTE</h2>
+
+<p><b>Escolha seu candidato:</b></p>
+
+<div class="candidato">
+<b>11</b> - Ariana Grande
+</div>
+
+<div class="candidato">
+<b>22</b> - Sabrina Carpenter
+</div>
+
+<div class="candidato">
+<b>13</b> - Taylor Swift
+</div>
+
+<div id="numero"></div>
+
+<div id="nome"></div>
+
+<div id="mensagem"></div>
+
+</div>
+
+
+<!-- TECLADO -->
+<div class="teclado">
+
+<h3>TECLADO</h3>
+
+<div class="numeros">
+
+<button onclick="digitar(1)">1</button>
+<button onclick="digitar(2)">2</button>
+<button onclick="digitar(3)">3</button>
+
+<button onclick="digitar(4)">4</button>
+<button onclick="digitar(5)">5</button>
+<button onclick="digitar(6)">6</button>
+
+<button onclick="digitar(7)">7</button>
+<button onclick="digitar(8)">8</button>
+<button onclick="digitar(9)">9</button>
+
+<button></button>
+<button onclick="digitar(0)">0</button>
+<button></button>
+
+</div>
+
+<div class="acoes">
+
+<button class="branco" onclick="branco()">
+BRANCO
+</button>
+
+<button class="corrige" onclick="corrigir()">
+CORRIGE
+</button>
+
+<button class="confirma" onclick="confirmar()">
+CONFIRMA
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+let numero="";
+let cargo="Presidente";
+
+let candidatos={
+    "11":"Ariana Grande",
+    "22":"Sabrina Carpenter",
+    "13":"Taylor Swift"
+};
+
+function digitar(n){
+
+    if(numero.length < 2){
+
+        numero += n;
+
+        document.getElementById("numero").innerText=numero;
+
+        if(candidatos[numero]){
+            document.getElementById("nome").innerText=
+            candidatos[numero];
+        }
+    }
+}
+
+function corrigir(){
+
+    numero="";
+
+    document.getElementById("numero").innerText="";
+
+    document.getElementById("nome").innerText="";
+
+    document.getElementById("mensagem").innerText="";
+}
+
+function branco(){
+
+    document.getElementById("nome").innerText=
+    "VOTO EM BRANCO";
+}
+
+function confirmar(){
+
+    if(candidatos[numero]){
+
+        document.getElementById("mensagem").innerText=
+        "Você votou em: "+candidatos[numero];
+
+        setTimeout(function(){
+
+            if(cargo=="Presidente"){
+
+                cargo="Governador";
+
+                document.getElementById("cargo").innerText=
+                "GOVERNADOR";
+
+                numero="";
+
+                document.getElementById("numero").innerText="";
+                document.getElementById("nome").innerText="";
+                document.getElementById("mensagem").innerText="";
+
+            }else{
+
+                document.getElementById("cargo").innerText=
+                "FIM DA VOTAÇÃO";
+
+                document.getElementById("numero").innerText="";
+
+                document.getElementById("nome").innerText=
+                "Votação concluída!";
+
+            }
+
+        },2000);
+
+    }else{
+
+        document.getElementById("mensagem").innerText=
+        "Digite um número válido!";
+
+    }
+}
+
+</script>
+
+</body>
+</html>
