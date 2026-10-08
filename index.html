@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -17,61 +16,58 @@ body{
 .urna{
     background:#ccc;
     width:500px;
-    padding:20px;
-    border-radius:10px;
-    box-shadow:0 0 15px #000;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 0 20px #000;
 }
 
 .tela{
-    background:white;
-    height:220px;
+    background:#eee;
     border:8px solid #333;
-    padding:20px;
-}
-
-h2{text-align:center;}
-
-.numero{
-    font-size:30px;
-    border-bottom:2px solid #000;
-    width:130px;
-    margin:20px auto;
+    padding:25px;
     text-align:center;
 }
 
-.teclado{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:8px;
-    width:280px;
-    margin:20px auto;
+h1{
+    font-size:25px;
 }
 
-button{
+.candidato{
+    background:#fff;
+    border:2px solid #333;
     padding:15px;
-    font-size:18px;
-    border:0;
-    border-radius:5px;
+    margin:12px;
     cursor:pointer;
+    border-radius:5px;
+}
+
+.candidato:hover{
+    background:#ddd;
+}
+
+.numero{
+    font-size:20px;
+    font-weight:bold;
+}
+
+#mensagem{
+    margin-top:20px;
+    font-size:22px;
+    font-weight:bold;
+}
+
+.teclado{
+    margin-top:20px;
+    text-align:center;
 }
 
 .teclado button{
     background:#111;
     color:white;
-}
-
-.branco{background:white;}
-.corrige{background:#e5a800;}
-.confirma{background:#198754;color:white;}
-
-.botoes{
-    text-align:center;
-}
-
-#resultado{
-    text-align:center;
-    font-size:20px;
-    font-weight:bold;
+    padding:12px 18px;
+    margin:3px;
+    border:0;
+    font-size:18px;
 }
 </style>
 </head>
@@ -82,118 +78,63 @@ button{
 
 <div class="tela">
 
-<h2 id="cargo">PRESIDENTE</h2>
+<h1 id="cargo">PRESIDENTE</h1>
 
-<p>Digite o número do candidato:</p>
+<div class="candidato" onclick="votar('Ariana Grande')">
+    <div class="numero">11</div>
+    Ariana Grande
+</div>
 
-<div class="numero" id="numero"></div>
+<div class="candidato" onclick="votar('Sabrina Carpenter')">
+    <div class="numero">22</div>
+    Sabrina Carpenter
+</div>
 
-<div id="resultado"></div>
+<div class="candidato" onclick="votar('Taylor Swift')">
+    <div class="numero">13</div>
+    Taylor Swift
+</div>
+
+<div id="mensagem"></div>
 
 </div>
 
 <div class="teclado">
-
-<button onclick="digitar(1)">1</button>
-<button onclick="digitar(2)">2</button>
-<button onclick="digitar(3)">3</button>
-
-<button onclick="digitar(4)">4</button>
-<button onclick="digitar(5)">5</button>
-<button onclick="digitar(6)">6</button>
-
-<button onclick="digitar(7)">7</button>
-<button onclick="digitar(8)">8</button>
-<button onclick="digitar(9)">9</button>
-
-<button onclick="digitar(0)">0</button>
-
-</div>
-
-<div class="botoes">
-<button class="branco" onclick="branco()">BRANCO</button>
-<button class="corrige" onclick="corrigir()">CORRIGE</button>
-<button class="confirma" onclick="confirmar()">CONFIRMA</button>
+    <button>1</button>
+    <button>2</button>
+    <button>3</button>
+    <button>4</button>
+    <button>5</button>
+    <button>6</button>
+    <button>7</button>
+    <button>8</button>
+    <button>9</button>
+    <button>0</button>
 </div>
 
 </div>
 
 <script>
 
-let numero = "";
-let cargo = "Presidente";
+function votar(nome){
 
-let candidatos = {
-    Presidente:{
-        "11":"Ariana Grande",
-        "22":"Sabrina Carpenter",
-        "13":"Taylor Swift"
-    },
-    Governador:{
-        "11":"Ariana Grande",
-        "22":"Sabrina Carpenter",
-        "13":"Taylor Swift"
-    }
-};
+    document.getElementById("mensagem").innerText =
+    "Você votou em: " + nome;
 
-function digitar(n){
-    if(numero.length < 2){
-        numero += n;
-        document.getElementById("numero").innerText = numero;
-    }
-}
+    setTimeout(function(){
 
-function corrigir(){
-    numero="";
-    document.getElementById("numero").innerText="";
-    document.getElementById("resultado").innerText="";
-}
+        document.getElementById("mensagem").innerText = "";
 
-function branco(){
-    document.getElementById("resultado").innerText="VOTO EM BRANCO";
-}
+        if(document.getElementById("cargo").innerText == "PRESIDENTE"){
+            document.getElementById("cargo").innerText = "GOVERNADOR";
+        }else{
+            document.getElementById("cargo").innerText = "FIM DA VOTAÇÃO";
+        }
 
-function confirmar(){
-
-    let candidato = candidatos[cargo][numero];
-
-    if(candidato){
-
-        document.getElementById("resultado").innerText =
-        "Você votou em: " + candidato;
-
-        setTimeout(function(){
-
-            if(cargo === "Presidente"){
-
-                cargo = "Governador";
-                numero="";
-
-                document.getElementById("cargo").innerText="GOVERNADOR";
-                document.getElementById("numero").innerText="";
-                document.getElementById("resultado").innerText="";
-
-            }else{
-
-                document.getElementById("cargo").innerText="FIM DA VOTAÇÃO";
-                document.getElementById("numero").innerText="";
-                document.getElementById("resultado").innerText=
-                "Votação concluída!";
-
-            }
-
-        },2000);
-
-    }else{
-
-        document.getElementById("resultado").innerText=
-        "Candidato não encontrado!";
-
-    }
+    },2000);
 }
 
 </script>
 
 </body>
 </html>
-```
